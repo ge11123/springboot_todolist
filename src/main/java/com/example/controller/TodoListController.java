@@ -3,8 +3,8 @@ package com.example.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.model.TodoList;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
@@ -12,9 +12,12 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 public class TodoListController {
+
     @GetMapping("/todolist")
     public ResponseEntity<List<TodoList>> getTodoList() {
         List<TodoList> todoLists = new ArrayList<>();
@@ -26,4 +29,20 @@ public class TodoListController {
 
         return ResponseEntity.status(HttpStatus.OK).body(todoLists);
     }
+
+    @PostMapping("/todolist")
+    public String addTodoList() {
+        return "這是post";
+    }
+
+    @PutMapping("/todolist")
+    public String updateTodoList() {
+        return "這是put";
+    }
+
+    @DeleteMapping("/todolist")
+    public String DeleteTodoList() {
+        return "這是delete";
+    }
+
 }
