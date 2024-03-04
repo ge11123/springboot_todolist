@@ -3,11 +3,11 @@ package com.example.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.model.TodoList;
+import com.example.service.TodoListService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -18,16 +18,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RestController
 public class TodoListController {
 
+    private final TodoListService todoListService;
+
+    public TodoListController(TodoListService todoListService) {
+        this.todoListService = todoListService;
+    }
+
     @GetMapping("/todolist")
     public ResponseEntity<List<TodoList>> getTodoList() {
-        List<TodoList> todoLists = new ArrayList<>();
-        todoLists.add(new TodoList(1, "讀書", false));
-        todoLists.add(new TodoList(2, "運動", true));
-        todoLists.add(new TodoList(3, "寫程式", false));
-        todoLists.add(new TodoList(4, "做家務", true));
-        todoLists.add(new TodoList(5, "看電影", false));
 
-        return ResponseEntity.status(HttpStatus.OK).body(todoLists);
+        List<TodoList> response = todoListService.getUnCompletedTodoLists();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PostMapping("/todolist")
