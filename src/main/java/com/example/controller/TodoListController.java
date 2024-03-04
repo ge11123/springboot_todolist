@@ -2,7 +2,7 @@ package com.example.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.model.TodoList;
+import com.example.entity.TodoItem;
 import com.example.service.TodoListService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,12 +18,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RestController
 public class TodoListController {
 
+    private final TodoListService todoListService;
+
+    public TodoListController(TodoListService todoListService) {
+        this.todoListService = todoListService;
+    }
+
     @GetMapping("/todolist")
-    public ResponseEntity<List<TodoList>> getTodoList() {
+    public ResponseEntity<List<TodoItem>> getTodoList() {
 
-        TodoListService todoListService = new TodoListService();
+        List<TodoItem> response = todoListService.getUnCompletedTodoLists();
 
-        List<TodoList> response = todoListService.getUnCompletedTodoLists();
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 

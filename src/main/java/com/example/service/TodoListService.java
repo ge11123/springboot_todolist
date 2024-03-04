@@ -1,23 +1,25 @@
 package com.example.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import com.example.model.TodoList;
+import org.springframework.stereotype.Component;
+
+import com.example.entity.TodoItem;
 import com.example.repository.TodoListRepository;
 
+@Component
 public class TodoListService {
 
-    public List<TodoList> getUnCompletedTodoLists() {
+    private final TodoListRepository todoListRepository;
 
-        TodoListRepository todoListRepository = new TodoListRepository();
+    public TodoListService(TodoListRepository todoListRepository) {
+        this.todoListRepository = todoListRepository;
+    }
 
-        List<TodoList> allTodoLists = todoListRepository.getTodoLists();
+    public List<TodoItem> getUnCompletedTodoLists() {
 
-        List<TodoList> uncompletedTodoLists = allTodoLists.stream()
-                .filter(todoList -> !todoList.isCompleted())
-                .collect(Collectors.toList());
+        List<TodoItem> todoItems = todoListRepository.getTodoItems();
 
-        return uncompletedTodoLists;
+        return todoItems;
     }
 }
