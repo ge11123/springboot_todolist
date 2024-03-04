@@ -3,11 +3,8 @@ package com.example.repository;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
 import com.example.model.TodoList;
 
-@Component
 public class TodoListRepository {
 
     public List<TodoList> getTodoLists() {

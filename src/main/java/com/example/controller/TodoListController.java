@@ -18,14 +18,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RestController
 public class TodoListController {
 
-    private final TodoListService todoListService;
-
-    public TodoListController(TodoListService todoListService) {
-        this.todoListService = todoListService;
-    }
-
     @GetMapping("/todolist")
     public ResponseEntity<List<TodoList>> getTodoList() {
+
+        TodoListService todoListService = new TodoListService();
 
         List<TodoList> response = todoListService.getUnCompletedTodoLists();
         return ResponseEntity.status(HttpStatus.OK).body(response);
